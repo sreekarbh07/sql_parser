@@ -10,34 +10,31 @@ def main():
               "table_d": {"col_d"}}
 
     sql_string = """
-                with cte1 as (
-                    select table_c.col_c as col_1, table_d.col_d as col_2 from table_c inner join table_d on table_c.col_c = table_d.col_d),
+                with 
+                cte1 as (
+                    select table_c.col_c as col_1, table_d.col_d as col_2 
+                    from table_c inner join table_d on table_c.col_c = table_d.col_d
+                ),
                 cte2 as (
-                select table_c.col_c as col_1, table_a.col_a as col_2 from table_c outer join table_a on table_c.col_c = table_a.col_a)
+                select table_c.col_c as col_1, table_a.col_a as col_2 
+                from table_c outer join table_a on table_c.col_c = table_a.col_a
+                )
                   
-                select * from cte1 inner join cte2 on cte1.col_1 = cte2.col_1 where cte1.col_2 = 3 AND cte2.col_1 in (8, 9, 10) OR cte2.col_2 like 'a%'
+                select * 
+                from cte1 inner join cte2 on cte1.col_1 = cte2.col_1 
+                where cte1.col_2 = 3 AND cte2.col_1 in (8, 9, 10) OR cte2.col_2 like 'a%'
                 """
 
     """
     Answer should look something like: 
     
-    {
-        {
-            table: table_d
-            column: col_1
-            value: 3
-        },
-        {
-            table: table_c
-            column: col_1
-            value: 5
-        }
-    }
-    """
+    [
+    {"table_name": "table_d", "column_name": "col_d", "value": "3"}, 
+    {"table_name": "table_c", "column_name": "col_c", "value": "(8, 9, 10, )"}, 
+    {"table_name": "table_a", "column_name": "col_a", "value": "a%"} 
+    ]
 
-    # TODO: 1. get the list of (column, literal) objects to identify
-    #       2. traverse through the base tree and find out the origins of the columns
-    #       3. populate the resultant map
+    """
 
     base_expression: sqlglot.Expression = sqlglot.parse_one(sql_string)
     target_where_clause: sqlglot.Where = base_expression.args['where']

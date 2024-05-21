@@ -75,7 +75,17 @@ Convert an SQL query into an Abstract Syntax Tree (AST). Once we have an AST, we
 3. **Source**: 
     - Source is basically the entire data from which the data should be filtered (which will be written in the `FROM` clause).
 
+### AST for a query having JOIN and a CTE
 
+![image](https://github.com/sreekarbh07/sql_parser/assets/170374414/6cdc67ed-08e3-4763-89bc-495cadb88ff5)
+
+Blue cloured part is a CTE (Common Table Expression). 
+
+#### Explananation of how would we find the original table and column for the filter conditions
+For each and every filter condition:
+1. We go and traverse entire tree.
+2. Whenever we ecounter a leaf noe like Source with table A, we check if the column belongs to that table or not.
+3. Whenever we find the table to which that column belongs to we would note down the original_table, original_column and continue this process to the next filter condition.
 
 
 ## Flow of the Code

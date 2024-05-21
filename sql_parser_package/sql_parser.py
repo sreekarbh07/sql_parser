@@ -25,17 +25,6 @@ def main():
                 where cte1.col_2 = 3 AND cte2.col_1 in (8, 9, 10) OR cte2.col_2 like 'a%'
                 """
 
-    """
-    Answer should look something like: 
-    
-    [
-    {"table_name": "table_d", "column_name": "col_d", "value": "3"}, 
-    {"table_name": "table_c", "column_name": "col_c", "value": "(8, 9, 10, )"}, 
-    {"table_name": "table_a", "column_name": "col_a", "value": "a%"} 
-    ]
-
-    """
-
     base_expression: sqlglot.Expression = sqlglot.parse_one(sql_string)
     target_where_clause: sqlglot.Where = base_expression.args['where']
 
@@ -45,8 +34,6 @@ def main():
 
     column_holder_list = list()
     traverse_and_populate_column_holder_list(target_where_clause, column_holder_list)
-
-    print(column_holder_list)
 
     column_origin_list = list()
     for column_holder in column_holder_list:

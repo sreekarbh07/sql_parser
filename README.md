@@ -57,6 +57,25 @@ Convert the conditions of an SQL query into a list of dictionaries where each di
 
 Convert an SQL query into an Abstract Syntax Tree (AST). Once we have an AST, we will traverse through the tree to find the original table and original column value.
 
+## AST Explanation
+
+### Basic AST block of a query:
+
+![image](https://github.com/sreekarbh07/sql_parser/assets/170374414/bd2639fe-5419-4ef9-bec5-6c8918ef0dcd)
+
+
+1. **Projections**: 
+    - For any query, projections are basically the columns that we output (which will be written in the `SELECT` clause).
+
+2. **Filter Expressions**: 
+    - Filter expressions are the filter conditions that should be applied to the data (which will be written in the `WHERE` clause).
+
+3. **Source**: 
+    - Source is basically the entire data from which the data should be filtered (which will be written in the `FROM` clause).
+
+
+
+
 ## Flow of the Code
 
 1. Use the Python library `SQLGLOT` to convert the SQL query into an AST (`base_expression`).

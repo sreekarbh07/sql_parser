@@ -10,6 +10,8 @@ Convert the conditions of an SQL query into a list of dictionaries where each di
 2. **Column Name**: The column name in the table.
 3. **Value**: The value with which we should compare the value of the database.
 
+We use the output of this to compare the value in the actual table, So assuming here that the value in filter conditions (`WHERE` clause) can not be a sub-query.
+
 ## Sample Input and Output
 
 ### Input:

@@ -4,7 +4,7 @@ This is designed to take in sql query and print out the origin of all the filter
 to test: change the sql query defined in the sql_parser.py
 
 Aim of this project:
-  Convert the conditions of an SQL query into a list of dictionary where each dictionary belongs to noe condition and it contains:
+  Convert the conditions of an SQL query into a list of dictionary where each dictionary belongs to one condition and it contains:
     1. Original Table fromm we should fetch the value to compare
     2. Column Name in the table 
     3. Value with which we should compare the value of database with.

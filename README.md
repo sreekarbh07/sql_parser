@@ -1,29 +1,37 @@
-# SQL parser
-This is designed to take in sql query and print out the origin of all the filter conditions.
+# SQL Parser
 
-to test: change the sql query defined in the sql_parser.py
+This project is designed to take in an SQL query and print out the origin of all the filter conditions.
 
-Aim of this project:
-  Convert the conditions of an SQL query into a list of dictionary where each dictionary belongs to one condition and it contains:
-    1. Original Table fromm we should fetch the value to compare
-    2. Column Name in the table 
-    3. Value with which we should compare the value of database with.
+## Testing
 
-Underlying Idea:
-  Convert an SQL query into an AST (Abstract Syntax Tree). Once we have an Abstract Syntax Tree, we will traverse through tree and find the original table ad original column value.
+To test, change the SQL query defined in `sql_parser.py`.
 
-Flow of the Code:
-  1. I have used the python library called SQLGLOT to convert the sql query into an AST. (base_expression)
-  2. Extracting the where clause in base_expression into target_where_clause, as this is where the filter conditions of the sql are.
-  3. creating a list of ColumnLiteralHolder objects called column_holder_list for all the filter conditions in target_where_clause.
-  4. ColumnLiteralHolder holds the actual table/cte name, column name (this could be actual name or alias) and value.
-  5. Then traversing through column_holder_list we will traverse through the base_expression tree and find the original_table and origina_column.
-  6. These are stored in column_origin_list as list of ColumnOrigin objects. where ColumnOrigin objects has the original_table_name, original_column, value.
+## Aim of this Project
 
+Convert the conditions of an SQL query into a list of dictionaries where each dictionary represents one condition and contains:
 
-Future Enhancements:
-  1. We can extend this to handle it sub-quries.
-  2. We can extend this to handling >, <, <=, >= operators
+1. **Original Table**: The table from which we should fetch the value to compare.
+2. **Column Name**: The column name in the table.
+3. **Value**: The value with which we should compare the value of the database.
+
+## Underlying Idea
+
+Convert an SQL query into an Abstract Syntax Tree (AST). Once we have an AST, we will traverse through the tree to find the original table and original column value.
+
+## Flow of the Code
+
+1. Use the Python library `SQLGLOT` to convert the SQL query into an AST (`base_expression`).
+2. Extract the `WHERE` clause in `base_expression` into `target_where_clause`, as this is where the filter conditions of the SQL query are.
+3. Create a list of `ColumnLiteralHolder` objects called `column_holder_list` for all the filter conditions in `target_where_clause`.
+4. `ColumnLiteralHolder` holds the actual table/CTE name, column name (which could be the actual name or alias), and value.
+5. Traverse through `column_holder_list` and the `base_expression` tree to find the `original_table` and `original_column`.
+6. Store these in `column_origin_list` as a list of `ColumnOrigin` objects, where `ColumnOrigin` objects have the `original_table_name`, `original_column`, and `value`.
+
+## Future Enhancements
+
+1. Extend to handle sub-queries.
+2. Extend to handle `>`, `<`, `<=`, `>=` operators.
+
 
 
 
